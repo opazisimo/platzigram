@@ -3,7 +3,8 @@ var sass = require('gulp-sass');
 var rename = require('gulp-rename');
 var babel = require('babelify');
 var browserify = require('browserify');
-var source = require('vinyl-source-stream')
+var source = require('vinyl-source-stream');
+var watchify = require('watchify');
 
 gulp.task('styles', function () {
   gulp
@@ -20,13 +21,33 @@ gulp.task('assets', function (){
     //glob
 })
 
-gulp.task('scripts', function () {
-  browserify('./src/index.js')
-    .transform(babel)
-    .bundle()
-    .pipe(source('index.js'))
-    .pipe(rename('app.js'))
-    .pipe(gulp.dest('public'));
-})
+function compile(watch){
+  var bundle = watchify(browserify('./src/index.js'));
 
-gulp.task('default', ['styles', 'assets', 'scripts']);
+  function rebundle() {
+    bundle
+      .transform(babel)
+      .bundle()
+      .pipe(source('index.js'))
+      .pipe(rename('app.js'))
+      .pipe(gulp.dest('public'));
+  }
+
+  if (watch) {
+    bundle.on('update', function(){
+      console.log('---> BundLing...');
+      rebundle();
+    })
+  }
+
+  rebundle();
+}
+
+gulp.task('build', function () {
+  return compile();
+});
+gulp.task('watch', function () {
+  return compile(true);
+});
+
+gulp.task('default', ['styles', 'assets', 'build', 'watch']);
