@@ -2,3 +2,4 @@ node_modules/*
 assets/*
 public/*
 *.css
+npm-debug.log
