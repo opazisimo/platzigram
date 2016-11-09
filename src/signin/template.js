@@ -7,8 +7,8 @@ var signinForm = yo` <div class="col s12 m7">
           <h1 class="platzigram">Platzigram</h1>
           <form class="signup-form">
             <div class="section">
-              <a class="btn btn-fb hide-on-small-only">Iniciar sesión con Facebook</a>
-              <a class="btn btn-fb hide-on-med-and-up">Iniciar sesión</a>
+              <a class="btn btn-fb hide-on-small-only"> <i class="fa fa-facebook-official" aria-hidden="true"></i> Iniciar sesión con Facebook</a>
+              <a class="btn btn-fb hide-on-med-and-up"> <i class="fa fa-facebook-official" aria-hidden="true"></i> Iniciar sesión</a>
             </div>
             <div class="divider"></div>
             <div class="section">
